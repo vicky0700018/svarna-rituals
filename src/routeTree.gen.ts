@@ -13,8 +13,12 @@ import { Route as SiteRouteImport } from './routes/_site'
 import { Route as SiteIndexRouteImport } from './routes/_site/index'
 import { Route as SiteAboutRouteImport } from './routes/_site/about'
 import { Route as SiteCollectionsRouteImport } from './routes/_site/collections'
+import { Route as SiteContactRouteImport } from './routes/_site/contact'
 import { Route as SiteIngredientsRouteImport } from './routes/_site/ingredients'
+import { Route as SitePrivacyRouteImport } from './routes/_site/privacy'
 import { Route as SiteRitualsRouteImport } from './routes/_site/rituals'
+import { Route as SiteTermsRouteImport } from './routes/_site/terms'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as SiteJournalIndexRouteImport } from './routes/_site/journal.index'
 import { Route as SiteJournalIdRouteImport } from './routes/_site/journal.$id'
 import { Route as SiteProductIdRouteImport } from './routes/_site/product.$id'
@@ -38,15 +42,35 @@ const SiteCollectionsRoute = SiteCollectionsRouteImport.update({
   path: '/collections',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteContactRoute = SiteContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => SiteRoute,
+} as any)
 const SiteIngredientsRoute = SiteIngredientsRouteImport.update({
   id: '/ingredients',
   path: '/ingredients',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SitePrivacyRoute = SitePrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => SiteRoute,
 } as any)
 const SiteRitualsRoute = SiteRitualsRouteImport.update({
   id: '/rituals',
   path: '/rituals',
   getParentRoute: () => SiteRoute,
+} as any)
+const SiteTermsRoute = SiteTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => SiteRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const SiteJournalIndexRoute = SiteJournalIndexRouteImport.update({
   id: '/journal/',
@@ -68,8 +92,12 @@ export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
   '/about': typeof SiteAboutRoute
   '/collections': typeof SiteCollectionsRoute
+  '/contact': typeof SiteContactRoute
   '/ingredients': typeof SiteIngredientsRoute
+  '/privacy': typeof SitePrivacyRoute
   '/rituals': typeof SiteRitualsRoute
+  '/terms': typeof SiteTermsRoute
+  '/admin/login': typeof AdminLoginRoute
   '/journal/$id': typeof SiteJournalIdRoute
   '/product/$id': typeof SiteProductIdRoute
   '/journal/': typeof SiteJournalIndexRoute
@@ -77,8 +105,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/about': typeof SiteAboutRoute
   '/collections': typeof SiteCollectionsRoute
+  '/contact': typeof SiteContactRoute
   '/ingredients': typeof SiteIngredientsRoute
+  '/privacy': typeof SitePrivacyRoute
   '/rituals': typeof SiteRitualsRoute
+  '/terms': typeof SiteTermsRoute
+  '/admin/login': typeof AdminLoginRoute
   '/': typeof SiteIndexRoute
   '/journal/$id': typeof SiteJournalIdRoute
   '/product/$id': typeof SiteProductIdRoute
@@ -89,8 +121,12 @@ export interface FileRoutesById {
   '/_site': typeof SiteRouteWithChildren
   '/_site/about': typeof SiteAboutRoute
   '/_site/collections': typeof SiteCollectionsRoute
+  '/_site/contact': typeof SiteContactRoute
   '/_site/ingredients': typeof SiteIngredientsRoute
+  '/_site/privacy': typeof SitePrivacyRoute
   '/_site/rituals': typeof SiteRitualsRoute
+  '/_site/terms': typeof SiteTermsRoute
+  '/admin/login': typeof AdminLoginRoute
   '/_site/': typeof SiteIndexRoute
   '/_site/journal/$id': typeof SiteJournalIdRoute
   '/_site/product/$id': typeof SiteProductIdRoute
@@ -102,8 +138,12 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/collections'
+    | '/contact'
     | '/ingredients'
+    | '/privacy'
     | '/rituals'
+    | '/terms'
+    | '/admin/login'
     | '/journal/$id'
     | '/product/$id'
     | '/journal/'
@@ -111,8 +151,12 @@ export interface FileRouteTypes {
   to:
     | '/about'
     | '/collections'
+    | '/contact'
     | '/ingredients'
+    | '/privacy'
     | '/rituals'
+    | '/terms'
+    | '/admin/login'
     | '/'
     | '/journal/$id'
     | '/product/$id'
@@ -122,8 +166,12 @@ export interface FileRouteTypes {
     | '/_site'
     | '/_site/about'
     | '/_site/collections'
+    | '/_site/contact'
     | '/_site/ingredients'
+    | '/_site/privacy'
     | '/_site/rituals'
+    | '/_site/terms'
+    | '/admin/login'
     | '/_site/'
     | '/_site/journal/$id'
     | '/_site/product/$id'
@@ -132,6 +180,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   SiteRoute: typeof SiteRouteWithChildren
+  AdminLoginRoute: typeof AdminLoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -164,11 +213,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteCollectionsRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/contact': {
+      id: '/_site/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof SiteContactRouteImport
+      parentRoute: typeof SiteRoute
+    }
     '/_site/ingredients': {
       id: '/_site/ingredients'
       path: '/ingredients'
       fullPath: '/ingredients'
       preLoaderRoute: typeof SiteIngredientsRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/privacy': {
+      id: '/_site/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof SitePrivacyRouteImport
       parentRoute: typeof SiteRoute
     }
     '/_site/rituals': {
@@ -177,6 +240,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/rituals'
       preLoaderRoute: typeof SiteRitualsRouteImport
       parentRoute: typeof SiteRoute
+    }
+    '/_site/terms': {
+      id: '/_site/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof SiteTermsRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_site/journal/': {
       id: '/_site/journal/'
@@ -205,8 +282,11 @@ declare module '@tanstack/react-router' {
 interface SiteRouteChildren {
   SiteAboutRoute: typeof SiteAboutRoute
   SiteCollectionsRoute: typeof SiteCollectionsRoute
+  SiteContactRoute: typeof SiteContactRoute
   SiteIngredientsRoute: typeof SiteIngredientsRoute
+  SitePrivacyRoute: typeof SitePrivacyRoute
   SiteRitualsRoute: typeof SiteRitualsRoute
+  SiteTermsRoute: typeof SiteTermsRoute
   SiteIndexRoute: typeof SiteIndexRoute
   SiteJournalIdRoute: typeof SiteJournalIdRoute
   SiteProductIdRoute: typeof SiteProductIdRoute
@@ -216,8 +296,11 @@ interface SiteRouteChildren {
 const SiteRouteChildren: SiteRouteChildren = {
   SiteAboutRoute: SiteAboutRoute,
   SiteCollectionsRoute: SiteCollectionsRoute,
+  SiteContactRoute: SiteContactRoute,
   SiteIngredientsRoute: SiteIngredientsRoute,
+  SitePrivacyRoute: SitePrivacyRoute,
   SiteRitualsRoute: SiteRitualsRoute,
+  SiteTermsRoute: SiteTermsRoute,
   SiteIndexRoute: SiteIndexRoute,
   SiteJournalIdRoute: SiteJournalIdRoute,
   SiteProductIdRoute: SiteProductIdRoute,
@@ -228,6 +311,7 @@ const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   SiteRoute: SiteRouteWithChildren,
+  AdminLoginRoute: AdminLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

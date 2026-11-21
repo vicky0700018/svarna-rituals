@@ -13,9 +13,9 @@ import { Reveal } from "@/components/ui-luxe/Reveal";
 
 
 interface CollectionSearch {
-  q?: string;
-  category?: string;
-  sort?: Sort;
+  q?: string | undefined;
+  category?: string | undefined;
+  sort?: Sort | undefined;
 }
 
 export const Route = createFileRoute("/_site/collections")({
