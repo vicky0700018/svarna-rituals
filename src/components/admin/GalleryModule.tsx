@@ -66,7 +66,7 @@ export function GalleryModule() {
         )}
       </Modal>
 
-      <Modal open={!!viewing} onClose={() => setViewing(null)} title={viewing?.title} size="lg">
+      <Modal open={!!viewing} onClose={() => setViewing(null)} title={viewing?.title ?? "Image"} size="lg">
         {viewing && (
           <div className="p-6">
             <SmartImage src={viewing.image} alt={viewing.title} className="max-h-[65vh] w-full rounded-2xl object-contain" />
