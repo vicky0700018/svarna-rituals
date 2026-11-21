@@ -9,50 +9,225 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as SiteRouteImport } from './routes/_site'
+import { Route as SiteIndexRouteImport } from './routes/_site/index'
+import { Route as SiteAboutRouteImport } from './routes/_site/about'
+import { Route as SiteCollectionsRouteImport } from './routes/_site/collections'
+import { Route as SiteIngredientsRouteImport } from './routes/_site/ingredients'
+import { Route as SiteRitualsRouteImport } from './routes/_site/rituals'
+import { Route as SiteJournalIndexRouteImport } from './routes/_site/journal.index'
+import { Route as SiteJournalIdRouteImport } from './routes/_site/journal.$id'
+import { Route as SiteProductIdRouteImport } from './routes/_site/product.$id'
 
-const IndexRoute = IndexRouteImport.update({
+const SiteRoute = SiteRouteImport.update({
+  id: '/_site',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteIndexRoute = SiteIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteAboutRoute = SiteAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteCollectionsRoute = SiteCollectionsRouteImport.update({
+  id: '/collections',
+  path: '/collections',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteIngredientsRoute = SiteIngredientsRouteImport.update({
+  id: '/ingredients',
+  path: '/ingredients',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteRitualsRoute = SiteRitualsRouteImport.update({
+  id: '/rituals',
+  path: '/rituals',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteJournalIndexRoute = SiteJournalIndexRouteImport.update({
+  id: '/journal/',
+  path: '/journal/',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteJournalIdRoute = SiteJournalIdRouteImport.update({
+  id: '/journal/$id',
+  path: '/journal/$id',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteProductIdRoute = SiteProductIdRouteImport.update({
+  id: '/product/$id',
+  path: '/product/$id',
+  getParentRoute: () => SiteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof SiteIndexRoute
+  '/about': typeof SiteAboutRoute
+  '/collections': typeof SiteCollectionsRoute
+  '/ingredients': typeof SiteIngredientsRoute
+  '/rituals': typeof SiteRitualsRoute
+  '/journal/$id': typeof SiteJournalIdRoute
+  '/product/$id': typeof SiteProductIdRoute
+  '/journal/': typeof SiteJournalIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/about': typeof SiteAboutRoute
+  '/collections': typeof SiteCollectionsRoute
+  '/ingredients': typeof SiteIngredientsRoute
+  '/rituals': typeof SiteRitualsRoute
+  '/': typeof SiteIndexRoute
+  '/journal/$id': typeof SiteJournalIdRoute
+  '/product/$id': typeof SiteProductIdRoute
+  '/journal': typeof SiteJournalIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_site': typeof SiteRouteWithChildren
+  '/_site/about': typeof SiteAboutRoute
+  '/_site/collections': typeof SiteCollectionsRoute
+  '/_site/ingredients': typeof SiteIngredientsRoute
+  '/_site/rituals': typeof SiteRitualsRoute
+  '/_site/': typeof SiteIndexRoute
+  '/_site/journal/$id': typeof SiteJournalIdRoute
+  '/_site/product/$id': typeof SiteProductIdRoute
+  '/_site/journal/': typeof SiteJournalIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/collections'
+    | '/ingredients'
+    | '/rituals'
+    | '/journal/$id'
+    | '/product/$id'
+    | '/journal/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/about'
+    | '/collections'
+    | '/ingredients'
+    | '/rituals'
+    | '/'
+    | '/journal/$id'
+    | '/product/$id'
+    | '/journal'
+  id:
+    | '__root__'
+    | '/_site'
+    | '/_site/about'
+    | '/_site/collections'
+    | '/_site/ingredients'
+    | '/_site/rituals'
+    | '/_site/'
+    | '/_site/journal/$id'
+    | '/_site/product/$id'
+    | '/_site/journal/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  SiteRoute: typeof SiteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_site': {
+      id: '/_site'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof SiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_site/': {
+      id: '/_site/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof SiteIndexRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/about': {
+      id: '/_site/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof SiteAboutRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/collections': {
+      id: '/_site/collections'
+      path: '/collections'
+      fullPath: '/collections'
+      preLoaderRoute: typeof SiteCollectionsRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/ingredients': {
+      id: '/_site/ingredients'
+      path: '/ingredients'
+      fullPath: '/ingredients'
+      preLoaderRoute: typeof SiteIngredientsRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/rituals': {
+      id: '/_site/rituals'
+      path: '/rituals'
+      fullPath: '/rituals'
+      preLoaderRoute: typeof SiteRitualsRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/journal/': {
+      id: '/_site/journal/'
+      path: '/journal'
+      fullPath: '/journal/'
+      preLoaderRoute: typeof SiteJournalIndexRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/journal/$id': {
+      id: '/_site/journal/$id'
+      path: '/journal/$id'
+      fullPath: '/journal/$id'
+      preLoaderRoute: typeof SiteJournalIdRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/product/$id': {
+      id: '/_site/product/$id'
+      path: '/product/$id'
+      fullPath: '/product/$id'
+      preLoaderRoute: typeof SiteProductIdRouteImport
+      parentRoute: typeof SiteRoute
     }
   }
 }
 
+interface SiteRouteChildren {
+  SiteAboutRoute: typeof SiteAboutRoute
+  SiteCollectionsRoute: typeof SiteCollectionsRoute
+  SiteIngredientsRoute: typeof SiteIngredientsRoute
+  SiteRitualsRoute: typeof SiteRitualsRoute
+  SiteIndexRoute: typeof SiteIndexRoute
+  SiteJournalIdRoute: typeof SiteJournalIdRoute
+  SiteProductIdRoute: typeof SiteProductIdRoute
+  SiteJournalIndexRoute: typeof SiteJournalIndexRoute
+}
+
+const SiteRouteChildren: SiteRouteChildren = {
+  SiteAboutRoute: SiteAboutRoute,
+  SiteCollectionsRoute: SiteCollectionsRoute,
+  SiteIngredientsRoute: SiteIngredientsRoute,
+  SiteRitualsRoute: SiteRitualsRoute,
+  SiteIndexRoute: SiteIndexRoute,
+  SiteJournalIdRoute: SiteJournalIdRoute,
+  SiteProductIdRoute: SiteProductIdRoute,
+  SiteJournalIndexRoute: SiteJournalIndexRoute,
+}
+
+const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  SiteRoute: SiteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
