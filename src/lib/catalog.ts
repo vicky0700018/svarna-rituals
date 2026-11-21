@@ -11,7 +11,7 @@ export const SORTS: { value: Sort; label: string }[] = [
 
 export function filterProducts(
   products: Product[],
-  opts: { q?: string; category?: string; sort?: Sort; featuredOnly?: boolean; wishlist?: string[] | null },
+  opts: { q?: string | undefined; category?: string | undefined; sort?: Sort | undefined; featuredOnly?: boolean; wishlist?: string[] | null },
 ): Product[] {
   const q = (opts.q ?? "").trim().toLowerCase();
   let list = products.filter((p) => p.published);
